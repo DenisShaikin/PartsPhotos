@@ -1,23 +1,87 @@
-version: "3"
+version: '3.8'
 services:
-  web:
-    # Give your image a static name
-    image: rednafi/flask-factory:v2
 
-    # Give your container a static name
-    container_name: flask-factory
-
-    build:
-      # Explicitly show docker-cli where your Dockerfile lies
-      context: ./
-
-      # Explicitly state the name of your dockerfile
-      dockerfile: Dockerfile
-
-    # Env file
-    env_file:
-      - .env
-      
-    # Expose ports
+  mysql:
+    image: mysql/mysql-server:5.7
+    volumes:
+      - abcp_db:/db/
     ports:
-      - 4000:4000
+      - 3306:3306
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=abcpphotos
+      - MYSQL_USER=abcpphotos
+      - MYSQL_PASSWORD=abcppass
+
+    command:
+      --sql-mode=""
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    restart: on-failure
+
+  abcpPhotos:
+    build: .
+    restart: always
+    security_opt:
+      - seccomp=chrome.json
+    expose:
+      - '465'
+      - '5000'
+    links:
+      - mysql
+    command:
+    environment:
+      - SECRET_KEY=apcpsecret
+      - MAIL_SERVER=smtp.mail.ru
+      - MAIL_PORT=465
+      - MAIL_USE_TLS=0
+      - MAIL_USE_SSL=1
+      - MAIL_USERNAME=chaikide@mail.ru
+      - MAIL_PASSWORD=Akakiy00!
+      - "DATABASE_URL=mysql+pymysql://abcpphotos:abcppass@mysql/abcpphotos"
+      - DB_HOST=mysql
+      - DEBUG=False
+    shm_size: '2gb'
+
+    volumes:
+      - abcp_photos:/home/abcpPhotos/apps/static/
+      - static_volume:/home/abcpPhotos/apps/static/
+
+    depends_on:
+      - mysql
+
+  nginx:
+    image: 1.23-alpine
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - abcpPhotos
+    links:
+      - abcpPhotos
+
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    volumes:
+      - static_volume:/home/abcpPhotos/apps/static
+      - /home/data/certbot/conf:/etc/letsencrypt
+      - /home/data/certbot/www:/var/www/certbot
+
+#  certbot:
+#    image: certbot/certbot
+#    depends_on:
+#      - nginx
+#    links:
+#      - nginx
+#    entrypoint: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+#    volumes:
+#      - /home/data/certbot/conf:/etc/letsencrypt:rw
+#      - /home/data/certbot/www:/var/www/certbot:rw
+
+volumes:
+  abcp_photos:
+  abcp_db:
+  static_volume:
