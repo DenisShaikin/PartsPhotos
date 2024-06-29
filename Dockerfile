@@ -15,6 +15,7 @@ COPY . ./
 # Update/upgrade the system
 RUN apt -y update
 RUN apt -y upgrade
+RUN apt install -y netcat 
 
 copy requirements.txt requirements.txt
 # RUN python -m venv venv комментарий
