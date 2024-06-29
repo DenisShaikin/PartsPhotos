@@ -32,7 +32,6 @@ services:
       - '5000'
     links:
       - mysql
-    command:
     environment:
       - SECRET_KEY=apcpsecret
       - MAIL_SERVER=smtp.mail.ru
