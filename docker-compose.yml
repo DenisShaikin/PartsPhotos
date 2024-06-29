@@ -22,7 +22,7 @@ services:
       --collation-server=utf8mb4_unicode_ci
     restart: on-failure
 
-  abcpPhotos:
+  abcp_photos:
     build: .
     restart: always
     expose:
@@ -57,9 +57,9 @@ services:
       - 80:80
       - 443:443
     depends_on:
-      - abcpPhotos
+      - abcp_photos
     links:
-      - abcpPhotos
+      - abcp_photos
 
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
