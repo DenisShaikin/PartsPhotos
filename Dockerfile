@@ -63,8 +63,8 @@ RUN chmod +x boot.sh
 ENV FLASK_APP apps
 ENV FLASK_ENV Production
 
-RUN chown -R abcpUser:abcpUser ./
-RUN chown -R abcpUser:abcpUser /var/log/
+RUN chown -R abcpUser:abcpuser ./
+RUN chown -R abcpUser:abcpuser /var/log/
 
 
 USER abcpUser
