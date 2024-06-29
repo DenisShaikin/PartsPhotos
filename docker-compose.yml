@@ -44,7 +44,7 @@ services:
     shm_size: '2gb'
 
     volumes:
-      - abcp_photos:/home/abcpPhotos/apps/static/
+      - abcp_photos_vol:/home/abcpPhotos/apps/static/
       - static_volume:/home/abcpPhotos/apps/static/
 
     depends_on:
@@ -79,6 +79,6 @@ services:
 #      - /home/data/certbot/www:/var/www/certbot:rw
 
 volumes:
-  abcp_photos:
+  abcp_photos_vol:
   abcp_db:
   static_volume:
