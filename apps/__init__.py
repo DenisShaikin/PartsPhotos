@@ -1,35 +1,37 @@
+
+# -*- encoding: utf-8 -*-
+"""
+Copyright (c) 2019 - present AppSeed.us
+"""
 from flask import Flask
-from flask_cors import CORS
-import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
+from config import Config
+
 
 db = SQLAlchemy()
-
 from .api import blueprint
-
-
-class Config:
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(basedir, 'app.db')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    PHOTOS_FILE = os.path.join(basedir, 'photos.csv')
-    PHOTOS_FOLDER = os.path.join('assets', 'img')
 
 def register_extensions(app):
     db.init_app(app)
+    # csrf = CSRFProtect()
+    # csrf.init_app(app)
+    return
 
 def configure_database(app):
-    # push context manually to app
-    with app.app_context():
+    # @app.before_first_request
+    def initialize_database():
         db.create_all()
-    #
-    # @app.teardown_request
-    # def shutdown_session(exception=None):
-    #     db.session.remove()
 
-def create_app():
+    @app.teardown_request
+    def shutdown_session(exception=None):
+        db.session.remove()
+
+
+# def init_tireDiameters(diamList, session):
+
+def create_app(config):
     app = Flask(__name__)
     app.config.from_object(Config)
     register_extensions(app)
@@ -51,6 +53,6 @@ def create_app():
         return response
 
     app.register_blueprint(blueprint)
-    # app.register_blueprint(api_b)
-
     return app
+
+

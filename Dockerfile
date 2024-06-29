@@ -32,7 +32,7 @@ COPY apps apps
 #COPY media media
 # COPY migrations migrations
 COPY boot.sh ./
-# COPY thorns.csv wear_discounts.csv TirePricesBase.csv RimPricesBase.csv RimsCatalogue.csv TireGide.csv Areas.csv RossiyaAllTires_Result.csv ./apps
+COPY photos.csv ./
 RUN chmod +x boot.sh
 
 ENV FLASK_APP apps
