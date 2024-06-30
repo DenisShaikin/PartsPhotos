@@ -1,14 +1,14 @@
-upstream takemobil {
-    server mobilize:5000;
+upstream frankserv {
+    server frankserv:5000;
 }
 
 server {
     listen 80;
-    server_name takemobil.ru;
+    server_name frankserv.ru;
 
 	location / {
         # forward application requests to the gunicorn server
-        proxy_pass http://takemobil;
+        proxy_pass http://frankserv;
         proxy_redirect off;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -16,7 +16,7 @@ server {
     }
 
     location /static {
-        alias /home/mobilize/apps/static;
+        alias /home/static;
     }
 
 }
