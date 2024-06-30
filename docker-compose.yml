@@ -60,12 +60,12 @@ services:
 #      - abcp_photos
 #    links:
 #      - abcp_photos
-
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    volumes:
-      - static_volume:/home/abcpPhotos/apps/static
-      - /home/data/certbot/conf:/etc/letsencrypt
-      - /home/data/certbot/www:/var/www/certbot
+#
+#    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+#    volumes:
+#      - static_volume:/home/abcpPhotos/apps/static
+#      - /home/data/certbot/conf:/etc/letsencrypt
+#      - /home/data/certbot/www:/var/www/certbot
 
 #  certbot:
 #    image: certbot/certbot
