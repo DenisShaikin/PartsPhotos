@@ -5,7 +5,7 @@
 #  exit 1
 #fi
 
-domains=(rezinos.ru)
+domains=(frankserv.ru)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="chaikide@mail.ru" # Adding a valid address is strongly recommended

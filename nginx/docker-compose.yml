@@ -6,13 +6,13 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /home/data/nginx:/etc/nginx/conf.d
+      - ./data/nginx:/etc/nginx/conf.d
   
   certbot:
     image: certbot/certbot
     
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
-      - /home/data/certbot/conf:/etc/letsencrypt 
-      - /home/data/certbot/www:/var/www/certbot
+      - ./data/certbot/conf:/etc/letsencrypt 
+      - ./data/certbot/www:/var/www/certbot
       
