@@ -35,7 +35,7 @@ COPY boot.sh ./
 COPY photos.csv ./
 RUN chmod +x boot.sh
 
-ENV FLASK_APP apps
+ENV FLASK_APP run.py
 ENV FLASK_ENV Production
 
 RUN chown -R abcpuser:abcpuser /var/log/

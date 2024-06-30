@@ -6,7 +6,7 @@ do
   # wait for 5 seconds before check again
   sleep 2
 done
-
+echo "Initializing DB"
 flask db init
 flask db migrate -m "juin30 2024"
 flask db upgrade
