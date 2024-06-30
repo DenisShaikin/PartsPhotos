@@ -8,7 +8,7 @@ do
 done
 
 flask db init
-flask db migrate -m "juin29 2024"
+flask db migrate -m "juin30 2024"
 flask db upgrade
 
 #exec celery -A celery_worker.celery worker -P gevent --loglevel=INFO &
