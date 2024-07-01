@@ -50,33 +50,33 @@ services:
     depends_on:
       - mysql
 
-#  nginx:
-#    image: 1.23-alpine
-#    build: ./nginx
-#    ports:
-#      - 80:80
-#      - 443:443
-#    depends_on:
-#      - abcp_photos
-#    links:
-#      - abcp_photos
-#
-#    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-#    volumes:
-#      - static_volume:/home/abcpPhotos/apps/static
-#      - /home/data/certbot/conf:/etc/letsencrypt
-#      - /home/data/certbot/www:/var/www/certbot
+  nginx:
+    image: 1.23-alpine
+    build: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - abcp_photos
+    links:
+      - abcp_photos
 
-#  certbot:
-#    image: certbot/certbot
-#    depends_on:
-#      - nginx
-#    links:
-#      - nginx
-#    entrypoint: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-#    volumes:
-#      - /home/data/certbot/conf:/etc/letsencrypt:rw
-#      - /home/data/certbot/www:/var/www/certbot:rw
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    volumes:
+      - static_volume:/home/abcpPhotos/apps/static
+      - /home/data/certbot/conf:/etc/letsencrypt
+      - /home/data/certbot/www:/var/www/certbot
+
+  certbot:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    links:
+      - nginx
+    entrypoint: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    volumes:
+      - /home/data/certbot/conf:/etc/letsencrypt:rw
+      - /home/data/certbot/www:/var/www/certbot:rw
 
 volumes:
   abcp_photos_vol:
