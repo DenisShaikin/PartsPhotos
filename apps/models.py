@@ -23,8 +23,12 @@ class Photo(db.Model):
         # return
         photos = pd.read_csv(app.config['PHOTOS_FILE'], encoding='utf-8', sep=';')
         photos.index.name = 'id'
-        print(photos.head())
+
         photos.url = photos.apply(lambda x: f(x['brand'], x['article']), axis=1)
         # print(photos.head())
-        photos.to_sql('photo', con=db.engine, if_exists='replace', dtype={'id': db.Integer}, chunksize=10000)
+        print(photos.head())
+        print('dbEngine=', db.engine)
+        photos.index.name = 'id'
+        photos.to_sql('photo', con=db.engine, if_exists='replace', index=False)
+        # dtype = {'id': db.Integer}, chunksize = 10000
         return ''
