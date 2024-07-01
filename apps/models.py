@@ -27,6 +27,6 @@ class Photo(db.Model):
         print(photos.head())
         print('dbEngine=', db.engine)
         photos.index.name = 'id'
-        photos.to_sql('photo', con=db.engine, if_exists='replace', index=False)
+        photos.to_sql('photo', con=db.engine, if_exists='append', index=False)
         # dtype = {'id': db.Integer}, chunksize = 10000
         return ''
