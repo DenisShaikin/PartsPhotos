@@ -18,7 +18,7 @@ class Photo(db.Model):
 
     def load_photos(self):
         def f(brand_, partnum):
-            return '\\/' + brand_ + '\\/' + partnum + '.jpg'
+            return app.config['DOMAIN_NAME'] + brand_ + '\/' + partnum + '.jpg'
         # basedir = os.path.abspath(os.path.dirname(__file__))
         # return
         photos = pd.read_csv(app.config['PHOTOS_FILE'], encoding='utf-8', sep=';')

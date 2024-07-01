@@ -21,7 +21,7 @@ class Config(object):
     SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_008')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-    DOMAIN_NAME = 'http://frankserv.ru/'
+    DOMAIN_NAME = 'http:\/\/frankserv.ru\/'
 
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
