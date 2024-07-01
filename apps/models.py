@@ -22,13 +22,11 @@ class Photo(db.Model):
         basedir = os.path.abspath(os.path.dirname(__file__))
         # return
         photos = pd.read_csv(app.config['PHOTOS_FILE'], encoding='utf-8', sep=';')
-        photos.index.name = 'id'
-
         photos.url = photos.apply(lambda x: f(x['brand'], x['article']), axis=1)
         # print(photos.head())
-        print(photos.head())
-        print('dbEngine=', db.engine)
-        photos.index.name = 'id'
-        photos.to_sql('photo', con=db.engine, if_exists='replace', index=False)
+        # print(photos.head())
+        # print('dbEngine=', db.engine)
+        # photos.index.name = 'id'
+        # photos.to_sql('photo', con=db.engine, if_exists='replace', index=False)
         # dtype = {'id': db.Integer}, chunksize = 10000
         return ''
