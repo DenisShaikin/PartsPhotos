@@ -32,7 +32,7 @@ def configure_database(app):
 # def init_tireDiameters(diamList, session):
 
 def create_app(config):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='static')
     app.config.from_object(Config)
     register_extensions(app)
     configure_database(app)
