@@ -4,20 +4,33 @@ from apps.api import blueprint
 from apps import db
 from apps.models import Photo
 from . import blueprint
+from flask import current_app as app
+import os
 from .main import func_main
 
 AUTH_KEY = "1234ABCD"
 
 @blueprint.route("/multifinderbrands.php", methods=["POST"])
 def multibrands():
-
+    # print('Мы здесь')
     args = request.get_json(force=True)
-    query = db.session.query(Photo.url).filter_by(**args)
-    photoLinks = query.all()
+    brand = args['brand'] if args['brand'] else ''
+    article = args['article'] if args['article'] else ''
+    filepath = app.config['DOMAIN_NAME'] + '\\/static\\/' + brand + '\\/' + article
+    filepath_= os.path.join(app.config['BASEDIR_'], 'apps', 'static', brand,  article)
     ptotosList= []
-    for photo in photoLinks:
-        # print(photo)
-        ptotosList.append(photo._asdict())
+    # print(filepath_+'.jpg', os.path.exists(filepath_+'.jpg'))
+    if os.path.exists(filepath_+'.jpg'):
+        ptotosList.append({'url:"': filepath + ".jpg"})
+    for i in range(10):
+        if os.path.exists(filepath_ + '_' + str(i) + '.jpg'):
+            ptotosList.append({'"url:"': filepath + '_' + str(i) + '.jpg"'})
+    # query = db.session.query(Photo.url).filter_by(**args)
+    # photoLinks = query.all()
+    # for photo in photoLinks:
+    #     # print(photo)
+    #     ptotosList.append(photo._asdict())
+
     return str(ptotosList)
 
 @blueprint.route("/<num>", methods=["GET"])
