@@ -66,7 +66,7 @@ services:
       - /home/abcpPhotos/apps/static/:/home/abcpPhotos/apps/static
       - /home/data/certbot/conf:/etc/letsencrypt
       - /home/data/certbot/www:/var/www/certbot
-
+      - 
   certbot:
     image: certbot/certbot
     depends_on:
