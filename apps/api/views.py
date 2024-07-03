@@ -23,6 +23,7 @@ def multibrands():
     if os.path.exists(filepath_+'.jpg'):
         ptotosList.append({'url:"': filepath + ".jpg"})
     for i in range(10):
+        print(filepath_ + '_' + str(i) + '.jpg')
         if os.path.exists(filepath_ + '_' + str(i) + '.jpg'):
             ptotosList.append({'"url:"': filepath + '_' + str(i) + '.jpg"'})
     # query = db.session.query(Photo.url).filter_by(**args)
