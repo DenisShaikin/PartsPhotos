@@ -44,8 +44,8 @@ services:
     shm_size: '2gb'
 
     volumes:
-      - abcp_photos_vol:/home/abcpPhotos/apps/static/
-      - static_volume:/home/abcpPhotos/apps/static/
+
+      - /home/abcpPhotos/apps/static/:/home/abcpPhotos/apps/static/
 
     depends_on:
       - mysql
@@ -63,7 +63,7 @@ services:
 
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
-      - static_volume:/home/abcpPhotos/apps/static
+      - /home/abcpPhotos/apps/static/:/home/abcpPhotos/apps/static
       - /home/data/certbot/conf:/etc/letsencrypt
       - /home/data/certbot/www:/var/www/certbot
 
@@ -79,6 +79,6 @@ services:
       - /home/data/certbot/www:/var/www/certbot:rw
 
 volumes:
-  abcp_photos_vol:
+  /home/abcpPhotos/apps/static/:
   abcp_db:
   static_volume:
