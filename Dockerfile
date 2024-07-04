@@ -39,6 +39,7 @@ ENV FLASK_APP run.py
 ENV FLASK_ENV Production
 
 RUN chown -R abcpuser:abcpuser /var/log/
+RUN chown -R abcpuser:abcpuser ./
 
 USER abcpuser
 
