@@ -16,7 +16,7 @@ def multibrands():
     args = request.get_json(force=True)
     brand = args['brand'] if args['brand'] else ''
     article = args['article'] if args['article'] else ''
-    filepath = app.config['DOMAIN_NAME'] + '\\/static\\/' + brand + '\\/' + article
+    filepath = app.config['DOMAIN_NAME'] + '\/static\/' + brand + '\/' + article
     filepath_= os.path.join(app.config['BASEDIR_'], 'apps', 'static', brand,  article)
     ptotosList= []
     # print(filepath_+'.jpg', os.path.exists(filepath_+'.jpg'))
