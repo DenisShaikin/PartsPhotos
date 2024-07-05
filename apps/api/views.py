@@ -28,7 +28,7 @@ def multibrands():
     df = pd.DataFrame(columns=['src', 'res'])
     f = [dirpath+'/'+ f for (dirpath, dirnames, filenames) in os.walk(filepath_) for f in filenames]
     fList = [{'src':itemf.lower().replace('-', '').replace(' ', ''), 'res':itemf} for itemf in f]
-    # print(fList)
+    print(fList)
     df = pd.DataFrame.from_dict(fList)
     # df.index=df['src']
     #Забираем список нужных путей
