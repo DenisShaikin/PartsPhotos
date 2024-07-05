@@ -33,18 +33,21 @@ def multibrands():
     filepath = app.config['DOMAIN_NAME'] + '\/static\/' + brand + '\/' + article
     # print(filepath)
     filepath_= os.path.join(app.config['BASEDIR_'], 'apps', 'static')
-    # print('filepath_=', filepath_)
+    print('filepath_=', filepath_)
     f = []
     myDict={}
     df = pd.DataFrame(columns=['src', 'res'])
     f = [dirpath+'/'+ f for (dirpath, dirnames, filenames) in os.walk(filepath_) for f in filenames]
     fList = [{'src':itemf.lower().replace('-', '').replace(' ', ''), 'res':itemf} for itemf in f]
-    # print(fList)
+    print(fList)
     df = pd.DataFrame.from_dict(fList)
     # df.index=df['src']
     #Забираем список нужных путей
-    dfResult = df.loc[(df['src'].str.contains(brand)) & (df['src'].str.contains(article))]['res']
-    # print(dfResult.head())
+    df.to_excel('test.xlsx')
+    print(df.loc[df['src'].str.contains(article)].head())
+    dfResult = df.loc[(df['src'].str.contains(brand.lower())) & (df['src'].str.contains(article.lower()))]['res']
+    print(brand, article)
+    print(dfResult.head())
     # собираем список
     ptotosList= []
     for item in dfResult:
