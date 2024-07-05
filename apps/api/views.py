@@ -12,18 +12,20 @@ AUTH_KEY = "1234ABCD"
 
 @blueprint.route("/multifinderbrands.php", methods=["POST"])
 def multibrands():
-    # print('Мы здесь')
-    args = request.get_json(force=True)
+    args = request.get_json(force=True)[0]
+    # print(args)
     brand = args['brand'] if args['brand'] else ''
     article = args['article'] if args['article'] else ''
+    # print('brand={}, article={}'.format(brand, article))
     filepath = app.config['DOMAIN_NAME'] + '\/static\/' + brand + '\/' + article
+    # print(filepath)
     filepath_= os.path.join(app.config['BASEDIR_'], 'apps', 'static', brand,  article)
     ptotosList= []
     # print(filepath_+'.jpg', os.path.exists(filepath_+'.jpg'))
     if os.path.exists(filepath_+'.jpg'):
         ptotosList.append({'url:"': filepath + ".jpg"})
     for i in range(10):
-        print(os.path.exists(filepath_ + '_' + str(i) + '.jpg'))
+        # print(os.path.exists(filepath_ + '_' + str(i) + '.jpg'))
         if os.path.exists(filepath_ + '_' + str(i) + '.jpg'):
             ptotosList.append({'"url:"': filepath + '_' + str(i) + '.jpg"'})
     # query = db.session.query(Photo.url).filter_by(**args)
