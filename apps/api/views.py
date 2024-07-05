@@ -51,7 +51,7 @@ def multibrands():
         # print(item)
         brand_ = item.replace('\\', '/').split('/')[-2]
         article_ = item.replace('\\', '/').split('/')[-1]
-        if (isPreview !=''):
+        if (not isPreview):
             if (not '_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + '\/static\/' + brand_ + '\/' + article_
                 ptotosList.append({'url': resLink})
