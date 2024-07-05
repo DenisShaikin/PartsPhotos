@@ -53,7 +53,7 @@ def multibrands():
         article_ = item.replace('\\', '/').split('/')[-1]
         if (not isPreview):
             if (not '_mini' in article_):
-                resLink = app.config['DOMAIN_NAME'] + '\/static\/' + brand_ + '\/' + article_
+                resLink = app.config['DOMAIN_NAME'] + 'static\/' + brand_ + '\/' + article_
                 ptotosList.append({'url': resLink})
         # if os.path.exists(filepath_+'.jpg'):
         #     ptotosList.append({'url:"': filepath + ".jpg"})
@@ -62,7 +62,7 @@ def multibrands():
         #         ptotosList.append({'"url:"': filepath + '_' + str(i) + '.jpg"'})
         else:
             if ('_mini' in article_):
-                resLink = app.config['DOMAIN_NAME'] + '\/static\/' + brand_ + '\/' + article_
+                resLink = app.config['DOMAIN_NAME'] + 'static\/' + brand_ + '\/' + article_
                 ptotosList.append({'url': resLink})
 
         print(ptotosList)
