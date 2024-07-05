@@ -33,11 +33,11 @@ def multibrands():
     # df.index=df['src']
     #Забираем список нужных путей
     dfResult = df.loc[(df['src'].str.contains(brand)) & (df['src'].str.contains(article))]['res']
-
+    print(dfResult.head())
     # собираем список
     ptotosList= []
     for item in dfResult:
-        # print(item)
+        print(item)
         brand_ = item.replace('\\', '/').split('/')[-2]
         article_ = item.replace('\\', '/').split('/')[-1]
         if not '_mini' in article_:
@@ -49,7 +49,7 @@ def multibrands():
         # for i in range(10):
         #     if os.path.exists(filepath_ + '_' + str(i) + '.jpg'):
         #         ptotosList.append({'"url:"': filepath + '_' + str(i) + '.jpg"'})
-        # print(ptotosList)
+        print(ptotosList)
     return (ptotosList)
 
 @blueprint.route("/<num>", methods=["GET"])
