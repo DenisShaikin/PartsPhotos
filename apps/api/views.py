@@ -14,6 +14,7 @@ AUTH_KEY = "1234ABCD"
 
 @blueprint.route("/multifinderbrands.php", methods=["POST"])
 def multibrands():
+    print('Мы здесь!')
     args = request.get_json(force=True)[0]
     brand = args['brand'] if args['brand'] else ''
     article = args['article'] if args['article'] else ''
