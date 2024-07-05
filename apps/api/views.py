@@ -6,6 +6,8 @@ from apps.models import Photo
 from . import blueprint
 from flask import current_app as app
 import os
+import pandas as pd
+from os import walk
 from .main import func_main
 
 AUTH_KEY = "1234ABCD"
@@ -13,28 +15,42 @@ AUTH_KEY = "1234ABCD"
 @blueprint.route("/multifinderbrands.php", methods=["POST"])
 def multibrands():
     args = request.get_json(force=True)[0]
-    # print(args)
     brand = args['brand'] if args['brand'] else ''
     article = args['article'] if args['article'] else ''
-    # print('brand={}, article={}'.format(brand, article))
+
+
     filepath = app.config['DOMAIN_NAME'] + '\/static\/' + brand + '\/' + article
     # print(filepath)
-    filepath_= os.path.join(app.config['BASEDIR_'], 'apps', 'static', brand,  article)
-    ptotosList= []
-    # print(filepath_+'.jpg', os.path.exists(filepath_+'.jpg'))
-    if os.path.exists(filepath_+'.jpg'):
-        ptotosList.append({'url:"': filepath + ".jpg"})
-    for i in range(10):
-        # print(os.path.exists(filepath_ + '_' + str(i) + '.jpg'))
-        if os.path.exists(filepath_ + '_' + str(i) + '.jpg'):
-            ptotosList.append({'"url:"': filepath + '_' + str(i) + '.jpg"'})
-    # query = db.session.query(Photo.url).filter_by(**args)
-    # photoLinks = query.all()
-    # for photo in photoLinks:
-    #     # print(photo)
-    #     ptotosList.append(photo._asdict())
+    filepath_= os.path.join(app.config['BASEDIR_'], 'apps', 'static')
 
-    return str(ptotosList)
+    f = []
+    myDict={}
+    df = pd.DataFrame(columns=['src', 'res'])
+    f = [dirpath+'/'+ f for (dirpath, dirnames, filenames) in os.walk(filepath_) for f in filenames]
+    fList = [{'src':itemf.lower().replace('-', '').replace(' ', ''), 'res':itemf} for itemf in f]
+    # print(fList)
+    df = pd.DataFrame.from_dict(fList)
+    # df.index=df['src']
+    #Забираем список нужных путей
+    dfResult = df.loc[(df['src'].str.contains(brand)) & (df['src'].str.contains(article))]['res']
+
+    # собираем список
+    ptotosList= []
+    for item in dfResult:
+        # print(item)
+        brand_ = item.replace('\\', '/').split('/')[-2]
+        article_ = item.replace('\\', '/').split('/')[-1]
+        if not '_mini' in article_:
+            resLink = app.config['DOMAIN_NAME'] + '\/static\/' + brand_ + '\/' + article_
+            # resLink = resLink.replace('\\', r"\")
+            ptotosList.append({'url': resLink})
+        # if os.path.exists(filepath_+'.jpg'):
+        #     ptotosList.append({'url:"': filepath + ".jpg"})
+        # for i in range(10):
+        #     if os.path.exists(filepath_ + '_' + str(i) + '.jpg'):
+        #         ptotosList.append({'"url:"': filepath + '_' + str(i) + '.jpg"'})
+        # print(ptotosList)
+    return (ptotosList)
 
 @blueprint.route("/<num>", methods=["GET"])
 def view(num):
