@@ -22,7 +22,7 @@ def multibrands():
     filepath = app.config['DOMAIN_NAME'] + '\/static\/' + brand + '\/' + article
     # print(filepath)
     filepath_= os.path.join(app.config['BASEDIR_'], 'apps', 'static')
-
+    print('filepath_=', filepath_)
     f = []
     myDict={}
     df = pd.DataFrame(columns=['src', 'res'])
