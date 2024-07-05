@@ -16,9 +16,18 @@ AUTH_KEY = "1234ABCD"
 def multibrands():
     # print('Мы здесь!')
     args = request.get_json(force=True)[0]
-    brand = args['brand'] if args['brand'] else ''
-    article = args['article'] if args['article'] else ''
-    isPreview = args['isPreview'] if args['isPreview'] else ''
+    try:
+        brand = args['brand']
+    except:
+        brand=''
+    try:
+        article = args['article']
+    except:
+        article=''
+    try:
+        isPreview = args['isPreview']
+    except:
+        isPreview=''
 
 
     filepath = app.config['DOMAIN_NAME'] + '\/static\/' + brand + '\/' + article
