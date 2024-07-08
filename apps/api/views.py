@@ -44,10 +44,10 @@ def multibrands():
     # df.index=df['src']
     #Забираем список нужных путей
     df.to_excel('test.xlsx')
-    print(df.loc[df['src'].str.contains(article)].head())
+    # print(df.loc[df['src'].str.contains(article)].head())
     dfResult = df.loc[(df['src'].str.contains(brand.lower())) & (df['src'].str.contains(article.lower()))]['res']
-    print(brand, article)
-    print(dfResult.head())
+    # print(brand, article)
+    # print(dfResult.head())
     # собираем список
     ptotosList= []
     for item in dfResult:
