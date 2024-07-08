@@ -8,6 +8,7 @@ from flask import current_app as app
 import os
 import pandas as pd
 import json
+import ujson
 from os import walk
 from .main import func_main
 
@@ -68,7 +69,7 @@ def multibrands():
         else:
             if ('_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
-                # resLink = str(json.dumps(resLink).replace('/', r'\/'))[1:-1]
+                resLink = ujson.dumps(resLink) #.replace('/', r'\/'))[1:-1]
                 ptotosList.append({'url': resLink})
         # ptotosList = json.dumps(ptotosList).replace('/', r'\/')
         print(ptotosList)
