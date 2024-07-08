@@ -70,7 +70,7 @@ def multibrands():
             if ('_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
                 # resLink = ujson.dumps(resLink) #.replace('/', r'\/'))[1:-1]
-                ptotosList.append({'url': json.dumps(resLink.replace('/', r'\/'))[1:-1]})
+                ptotosList.append({'url': json.dumps(resLink.replace('/', r'/'))[1:-1]})
         # ptotosList = json.dumps(ptotosList).replace('/', r'\/')
         print(ptotosList)
     return (ptotosList)
