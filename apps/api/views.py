@@ -59,7 +59,7 @@ def multibrands():
         if (not isPreview):
             if (not '_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
-                resLink = str(json.dumps(resLink).replace('/', r'\/'))[1:-1]
+                # resLink = str(json.dumps(resLink).replace('/', r'\/'))[1:-1]
                 ptotosList.append({'url': resLink})
         # if os.path.exists(filepath_+'.jpg'):
         #     ptotosList.append({'url:"': filepath + ".jpg"})
@@ -69,11 +69,13 @@ def multibrands():
         else:
             if ('_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
+                print(resLink)
                 # resLink = ujson.dumps(resLink) #.replace('/', r'\/'))[1:-1]
-                ptotosList.append({'url': ujson.dumps(resLink.replace('/', r'/'))[1:-1]})
+                ptotosList.append({'url': str(resLink)})
         # ptotosList = json.dumps(ptotosList).replace('/', r'\/')
-        print(ptotosList)
-    return (ptotosList)
+        # print(json.dumps(ptotosList).replace('/', r'\/'))
+        # print(ptotosList)
+    return (json.dumps(ptotosList).replace('/', r'\/'))
 
 @blueprint.route("/<num>", methods=["GET"])
 def view(num):
