@@ -7,6 +7,7 @@ from . import blueprint
 from flask import current_app as app
 import os
 import pandas as pd
+import json
 from os import walk
 from .main import func_main
 
@@ -57,6 +58,7 @@ def multibrands():
         if (not isPreview):
             if (not '_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
+                resLink = str(json.dumps(resLink).replace('/', r'\/'))[1:-1]
                 ptotosList.append({'url': resLink})
         # if os.path.exists(filepath_+'.jpg'):
         #     ptotosList.append({'url:"': filepath + ".jpg"})
@@ -66,8 +68,9 @@ def multibrands():
         else:
             if ('_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
+                resLink = str(json.dumps(resLink).replace('/', r'\/'))[1:-1]
                 ptotosList.append({'url': resLink})
-
+        # ptotosList = json.dumps(ptotosList).replace('/', r'\/')
         print(ptotosList)
     return (ptotosList)
 
