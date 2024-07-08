@@ -21,7 +21,7 @@ class Config(object):
     SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_008')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-    DOMAIN_NAME = 'https:\/\/frankserv.ru\/'
+    DOMAIN_NAME = 'https://frankserv.ru/'
     DOMAIN_NAME_ = 'http:\\\\frankserv.ru'
     BASEDIR_ = basedir
 
