@@ -55,7 +55,7 @@ def multibrands():
                 ptotosList.append({'url': resLink})
     if not ptotosList:
         # print('Здесь')
-        resLink = app.config['DOMAIN_NAME'] + 'static/zeekr/nophoto.jpeg'
+        resLink = app.config['DOMAIN_NAME'] + 'static/Zeekr/nophoto.jpg'
         ptotosList.append({'url': str(resLink)})
     return (json.dumps(ptotosList).replace('/', r'\/'))
 
