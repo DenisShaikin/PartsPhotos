@@ -39,8 +39,15 @@ def multibrands():
     f = []
     myDict={}
     df = pd.DataFrame(columns=['src', 'res'])
+    # for f in filenames:
+    # for dirpath, dirnames, filenames in os.walk(filepath_):
+    #     print(dirpath, dirnames, filenames)
+    #     # f = dirpath + '/' +  dirnames.lower().replace('/', '-') +  '/' + filenames.lower().replace('-', '').replace(' ', '')
+    # print(f)
     f = [dirpath+'/'+ f for (dirpath, dirnames, filenames) in os.walk(filepath_) for f in filenames]
-    fList = [{'src':itemf.lower().replace('-', '').replace(' ', ''), 'res':itemf} for itemf in f]
+    # print(f)
+    fList = [{'src':itemf.lower().replace('-', ''), 'res':itemf} for itemf in f]
+    # fList=[f for itemf in f]
     # print(fList)
     df = pd.DataFrame.from_dict(fList)
     # df.index=df['src']
