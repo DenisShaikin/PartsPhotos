@@ -31,19 +31,11 @@ def multibrands():
     except:
         isPreview=''
 
-    # filepath = app.config['DOMAIN_NAME'] + '\/static\/' + brand + '\/' + article
-    # print(filepath)
     filepath_= os.path.join(app.config['BASEDIR_'], 'apps', 'static')
-    # print('filepath_=', filepath_)
     f = []
-    # df = pd.DataFrame(columns=['src', 'res'])
     f = [dirpath+'/'+ f for (dirpath, dirnames, filenames) in os.walk(filepath_) for f in filenames]
-    # print(f)
     fList = [{'src':itemf.lower().replace('-', ''), 'res':itemf} for itemf in f]
     df = pd.DataFrame.from_dict(fList)
-    # df.index=df['src']
-    #Забираем список нужных путей
-    # df.to_excel('test.xlsx')
     dfResult = df.loc[(df['src'].str.contains(brand.lower())) & (df['src'].str.contains(article.lower()))]['res']
 
     # собираем список
@@ -52,17 +44,19 @@ def multibrands():
         # print(item)
         brand_ = item.replace('\\', '/').split('/')[-2]
         article_ = item.replace('\\', '/').split('/')[-1]
+
         if (not isPreview):
             if (not '_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
-                # resLink = str(json.dumps(resLink).replace('/', r'\/'))[1:-1]
                 ptotosList.append({'url': resLink})
         else:
             if ('_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
-                # print(resLink)
-                ptotosList.append({'url': str(resLink)})
-
+                ptotosList.append({'url': resLink})
+    if not ptotosList:
+        # print('Здесь')
+        resLink = app.config['DOMAIN_NAME'] + 'static/zeekr/nophoto.jpeg'
+        ptotosList.append({'url': str(resLink)})
     return (json.dumps(ptotosList).replace('/', r'\/'))
 
 @blueprint.route("/<num>", methods=["GET"])
