@@ -36,6 +36,7 @@ def multibrands():
     f = [dirpath+'/'+ f for (dirpath, dirnames, filenames) in os.walk(filepath_) for f in filenames]
     fList = [{'src':itemf.lower().replace('-', ''), 'res':itemf} for itemf in f]
     df = pd.DataFrame.from_dict(fList)
+    # print(df.loc[(df['src'].str.contains(brand.lower()))]['src'].tolist())
     dfResult = df.loc[(df['src'].str.contains(brand.lower())) & (df['src'].str.contains(article.lower()))]['res']
 
     # собираем список
@@ -53,6 +54,7 @@ def multibrands():
             if ('_mini' in article_):
                 resLink = app.config['DOMAIN_NAME'] + 'static/' + brand_ + '/' + article_
                 ptotosList.append({'url': resLink})
+        # print(ptotosList)
     if not ptotosList:
         # print('Здесь')
         resLink = app.config['DOMAIN_NAME'] + 'static/Zeekr/nophoto.jpg'
